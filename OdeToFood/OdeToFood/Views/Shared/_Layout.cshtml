@@ -4,34 +4,57 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <link href="~/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
-    <div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">OdeToFood</a>
+            </div>
+            <div class="navbar-right">
+                <vc:login-logout></vc:login-logout>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
         @RenderBody()
-    </div>
-    <div>
-        @DateTime.Now.Year
-    </div>
-    <footer>
-        @RenderSection("footer", required:false)
-        <vc:greeter></vc:greeter>
-        @if(User.Identity.IsAuthenticated)
-        {
-            foreach(var identity in User.Identities)
-            {
-                <h3>@identity.Name</h3>
-                <ul>
-                    @foreach(var claim in identity.Claims)
+
+        <footer>
+            @RenderSection("footer", required: false)
+            @*<vc:greeter></vc:greeter>*@
+            @*@if (User.Identity.IsAuthenticated)
+                {
+                    foreach (var identity in User.Identities)
                     {
-                        <li>@claim.Type - @claim.Value</li>
+                        <h3>@identity.Name</h3>
+                        <ul>
+                            @foreach (var claim in identity.Claims)
+                            {
+                                <li>@claim.Type - @claim.Value</li>
+                            }
+                        </ul>
                     }
-                </ul>
-            }
-        }
-        else
-        {
-            <div>Your are anonymous</div>
-        }
-    </footer>
+                }
+                else
+                {
+                    <div>Your are anonymous</div>
+                }*@
+        </footer>
+    </div>
+    <environment include="Development">
+        <script src="~/node_modules/jquery/dist/jquery.js"></script>
+        <script src="~/node_modules/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/node_modules/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
+    </environment>
+
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.js">
+        </script>
+    </environment>
 </body>
 </html>
